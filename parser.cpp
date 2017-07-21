@@ -65,9 +65,6 @@ Parser::Parser(const std::string &inputString, std::vector<std::pair<char,double
           }
     }
     m_input = m_inputWithVariables.c_str();
-#ifdef DEBUG
-    qDebug() << m_input;
-#endif
 }
 
 const Parser::MyTokens Parser::m_tokens;
@@ -173,6 +170,7 @@ double Parser::evaluateExpression(const Expression &e)
     }
     case 1: {
         auto a = evaluateExpression(e.args[0]);
+        if (e.token == "e") return pow(10, a);
         if (e.token == "+") return +a;
         if (e.token == "-") return -a;
         if (e.token == "!") return (a != 0) ? 0 : 1;
@@ -371,7 +369,7 @@ double Parser::evaluateExpression(const Expression &e)
     }
     case 0:
     {
-        //QString resString = QString::fromStdString(e.token.c_str());
+        //QString resString = QString::fromStdString(e.token.c_str()); //For Qt
         return std::atof(e.token.c_str());
     }
     }
@@ -976,7 +974,6 @@ std::vector<double> solveSystemOfNonLinearEquations(std::vector<std::string> equ
                 mtrJacobi.setValueAt(i, j, tmp);
 
                 stream << "J[" << i << "][" << j << "] = " << mtrJacobi.getValueAt(i, j) << " ";
-                //qDebug() << "J[" << i << "][" << j << "] = " << mtrJacobi.getValueAt(i, j);
             }
           stream << "\n";
         }
@@ -1003,7 +1000,6 @@ std::vector<double> solveSystemOfNonLinearEquations(std::vector<std::string> equ
             varList[i].second += mtrResiduals.getValueAt(i, 0);
             result[i] = varList[i].second;
             stream <<  variables[i].first << "i = " << result[i] << "\n";
-           // qDebug() << "result[" << i << "] = " << result[i];
         }
         // Проверяем среднеквадратическую невязку
     }while (err > eps);
