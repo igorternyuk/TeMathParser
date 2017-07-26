@@ -13,7 +13,7 @@ void test(std::string input, std::vector<std::pair<char, double>> vars)
 {
    try
     {
-        Parser p(input,vars);
+        iat::Parser p(input,vars);
         auto result = p.calculateExpression();
         std::cout.precision(15);
         std::cout << input << " = " << result << std::endl;
@@ -80,6 +80,9 @@ int main()
      test("arcsech(U)", vct);
      test("arccsech(0.5)", vct);
      test("X * X + Y * Y", vct);
+     test("X**3 + Y**4 + X*Y -17", vct);
+     test("factorial(5)", vct);
+     test("factorial(8)", vct);
      //std::cout << " atanh(0) " << atanh(0) << '\n';
 
     return 0;
