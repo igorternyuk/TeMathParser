@@ -5,15 +5,9 @@ CONFIG -= qt
 
 SOURCES += \
     main.cpp \
-    matematica.cpp \
-    parser.cpp \
-    matrix_error.cpp
+    parser.cpp
 
 HEADERS += \
-    matematica.h \
-    matrix.h \
-    parser.h \
-    matrix_error.h \
-    polynom.h
+    parser.h
 
 QMAKE_CXXFLAGS += -std=c++14
