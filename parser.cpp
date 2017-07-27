@@ -13,7 +13,7 @@
 const std::map<iat::ParserErrorCode, std::string> iat::ErrorParser::_parserErrors =
       iat::ErrorParser::createMap();
 
-const char *iat::ErrorParser::what() const
+const char *iat::ErrorParser::what() const throw()
 {
     std::ostringstream oss;
     oss << std::runtime_error::what() << " (code: " << static_cast<int>(_reason) << "): " <<
@@ -420,7 +420,7 @@ double iat::Parser::evaluateExpression(const Expression &e)
             else
                 throw ErrorParser(ParserErrorCode::DIVISION_BY_ZERO);
         }
-        throw throw ErrorParser(ParserErrorCode::UNKNOWN_UNARY_OPERATOR);
+        throw ErrorParser(ParserErrorCode::UNKNOWN_UNARY_OPERATOR);
     }
     case 0:
     {
@@ -428,7 +428,7 @@ double iat::Parser::evaluateExpression(const Expression &e)
         return std::atof(e.token.c_str());
     }
     }
-    throw throw ErrorParser(ParserErrorCode::UNKNOW_EXPRESSION_TYPE);
+    throw ErrorParser(ParserErrorCode::UNKNOW_EXPRESSION_TYPE);
 }
 
 double iat::Parser::calculateExpression()
